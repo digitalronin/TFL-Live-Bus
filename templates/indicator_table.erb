@@ -1,8 +1,8 @@
 <table id="indicator">
-  <% @json["arrivals"].each do |arrival| %>
+  <% @arrivals.each do |arrival| %>
   <tr>
-    <td class="number"><%= arrival["routeId"] %></td>
-    <td><%= arrival["estimatedWait"] %></td>
+    <td class="number"><%= arrival["lineId"] %></td>
+    <td><%= arrival["timeToStation"].to_i / 60 %></td>
   </tr>
   <% end %>
 </table>

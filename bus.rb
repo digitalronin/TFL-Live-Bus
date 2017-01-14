@@ -28,8 +28,12 @@ get '/nearby' do
 end
 
 get '/stop/:stop_id' do |stop_id|
-  @stop = STOPS.select {|x| x["id"] =~ /#{stop_id}/i}.first
-  get_stop_json(stop_id)
+  # TODO: @stop = STOPS.select {|x| x["id"] =~ /#{stop_id}/i}.first
+  @arrivals = get_arrivals(stop_id)
+  if @arrivals.any?
+    arr = @arrivals.first
+    @stop_name = "#{arr["stationName"]} (#{arr["platformName"]})"
+  end
   erb :stop
 end
 
@@ -49,7 +53,7 @@ get '/qr/:stop_id' do |stop_id|
 end
 
 get '/stop/:stop_id/partial' do |stop_id|
-  get_stop_json(stop_id)
+  @arrivals = get_arrivals(stop_id)
   erb :indicator_table
 end
 
@@ -63,6 +67,10 @@ get '/stop/:stop_id/jsonp' do |stop_id|
   "bus_json(#{make_request(stop_id)})"
 end
 
+def get_arrivals(stop_id)
+  response = make_request(stop_id)
+  JSON.parse(response).sort {|a,b| a["timeToStation"] <=> b["timeToStation"]}
+end
 
 def get_stop_json(stop_id)
   response = make_request(stop_id)
@@ -70,7 +78,7 @@ def get_stop_json(stop_id)
 end
 
 def make_request(stop_id)
-  Net::HTTP.get(URI.parse("http://countdown.tfl.gov.uk/stopBoard/#{stop_id}/"))
+  Net::HTTP.get(URI.parse("https://api.tfl.gov.uk/StopPoint/#{stop_id}/arrivals"))
 end
 
 def approximate_distance_between(stop, coords)

@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-  <title><%= @stop["name"] if @stop %> Buses Live!</title>
+  <title><%= @stop_name if @stop_name %> Buses Live!</title>
   <meta name="viewport" content="width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <style type="text/css" media="screen">
@@ -38,7 +38,7 @@
      color:#333;
    }
    p.disclaimer a{
-     color:#333; 
+     color:#333;
    }
    p.back {
      padding: 0.5em 0;
@@ -80,10 +80,10 @@
 </head>
 
 <body>
-  <%= erb :indicator_table %>
-  <% if @stop %>
-      <p class="stopname"><%= @stop["name"] %></p>
+  <% if @stop_name %>
+      <p class="stopname"><%= @stop_name %></p>
   <% end %>
+  <%= erb :indicator_table %>
   <p class="back"><a href="/">Search again</a></p>
   <p class="disclaimer">Data sucked from <a href="http://countdown.tfl.gov.uk/">TFL</a> without permission.</p>
 </body>
