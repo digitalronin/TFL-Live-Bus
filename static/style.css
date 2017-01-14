@@ -1,5 +1,5 @@
 * {
-  background-color:#000;
+  background-color: #000;
 }
 
 body {
@@ -10,11 +10,13 @@ body {
 }
 
 input {
+  background-color: #fff;
   font-size: 1.4em;
   margin-bottom: 10px;
 }
 
 input[type="submit"] {
+  background-color: #999;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
