@@ -9,7 +9,7 @@ set :public, File.dirname(__FILE__) + '/static'
 STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
 
 # The part before the docpath is in upper case because
-# that results in a smaller (i.e. fewer pixels) QR code 
+# that results in a smaller (i.e. fewer pixels) QR code
 # which is easier to scan
 STOP_URL = 'HTTP://BUS.ABSCOND.ORG/stop'
 
@@ -18,7 +18,7 @@ get '/' do
     @search_results = STOPS.select {|x| x["name"] =~ /#{params[:search]}/i}
   elsif params[:lat] && params[:lon] && params[:lat] != "" && params[:lon] != ""
     @search_results = STOPS.select { |x| approximate_distance_between(x, params) < 0.005 }
-    @search_results.sort_by! { |x| approximate_distance_between(x, params) }
+    @search_results.sort!{ |a, b| approximate_distance_between(a, params) <=> approximate_distance_between(b, params) }
   end
   erb :index
 end
@@ -33,11 +33,11 @@ get '/stop/:stop_id' do |stop_id|
   erb :stop
 end
 
-get '/qr' do 
+get '/qr' do
   if params[:search] && params[:search] != ""
     @stop = STOPS.select {|x| x["id"] =~ /#{params[:search]}/i}.first
   end
-  erb :qr 
+  erb :qr
 end
 
 get '/qr/:stop_id' do |stop_id|
@@ -66,7 +66,7 @@ end
 
 def get_stop_json(stop_id)
   response = make_request(stop_id)
-  @json = JSON.parse(response)  
+  @json = JSON.parse(response)
 end
 
 def make_request(stop_id)
