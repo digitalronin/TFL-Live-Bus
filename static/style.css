@@ -1,38 +1,71 @@
 body {
-    font: normal 14px "Helvetica Neue", "Helvetica", "Arial" sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color:#000;
+  color:#F00;
+  font-family: "Courier New", monospace;
+  font-size:1.6em;
+  font-weight:bold;
 }
-p.instruction {
-    margin: 5px;
-    font-size: 13px;
+
+input {
+  font-size:1.4em;
 }
-form.search {
-    margin: 5px;
+
+input[type="submit"] {
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+  padding: 4px;
+  font-size:1.4em;
 }
-td.stop,
-td.map {
-    vertical-align: top;
-    border-bottom: 1px solid #ddd;
+
+@media only screen and (min-width : 480px) {
+  body {
+    font-size: 3.2em;
+  }
 }
-td.map a {
-    padding: 5px 3px 5px 0;
-    display: block;
+
+table {
+  margin:0.2em auto;
 }
-a.stop {
-    padding: 5px 6px 6px 6px;
-    color: #000;
-    display: block;
-    text-decoration: none;
+
+td.number {
+  text-align:right;
+  padding-right:1em;
 }
-a.stop span.name {
-    font-weight: bold;
-    font-size: 17px;
+
+td.destination {
+  color: #d00;
+  font-size: 75%;
+  padding-left: 30px;
 }
-a span.details {
-    color: #000;
-    font-size: 14px;
+
+p.stopname {
+  text-align: center;
+  color: #999;
+  font-size:0.5em;
 }
-a.stop span.direction {
-    color: #36C;
+
+p.disclaimer {
+  font-size:0.4em;
+  text-align:center;
+  color:#333;
+}
+
+p.disclaimer a{
+  color:#333;
+}
+
+p.back {
+  padding: 0.5em 0;
+  font-size:0.6em;
+  text-align:center;
+  color:#333;
+}
+
+p.back a {
+  display: block;
+  padding: 1em 0;
+  color: #ddd;
+  text-decoration: none;
+  background-color: #151515;
 }

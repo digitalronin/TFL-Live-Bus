@@ -7,7 +7,7 @@ require 'net/http'
 require 'uri'
 require './lib/lookup'
 
-set :views, File.dirname(__FILE__) + '/templates'
+set :views, File.dirname(__FILE__) + '/views'
 set :public, File.dirname(__FILE__) + '/static'
 
 STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
