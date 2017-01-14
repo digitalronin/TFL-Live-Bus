@@ -1,21 +1,25 @@
-body {
+* {
   background-color:#000;
-  color:#F00;
+}
+
+body {
+  color: #F00;
   font-family: "Courier New", monospace;
-  font-size:1.6em;
-  font-weight:bold;
+  font-size: 1.6em;
+  font-weight: bold;
 }
 
 input {
-  font-size:1.4em;
+  font-size: 1.4em;
+  margin-bottom: 10px;
 }
 
 input[type="submit"] {
   -webkit-appearance: none;
-  -moz-appearance:    none;
-  appearance:         none;
+  -moz-appearance: none;
+  appearance: none;
   padding: 4px;
-  font-size:1.4em;
+  font-size: 1.4em;
 }
 
 @media only screen and (min-width : 480px) {
@@ -25,12 +29,12 @@ input[type="submit"] {
 }
 
 table {
-  margin:0.2em auto;
+  margin: 0.2em auto;
 }
 
 td.number {
-  text-align:right;
-  padding-right:1em;
+  text-align: right;
+  padding-right: 1em;
 }
 
 td.destination {
@@ -46,20 +50,20 @@ p.stopname {
 }
 
 p.disclaimer {
-  font-size:0.4em;
-  text-align:center;
-  color:#333;
+  font-size: 0.4em;
+  text-align: center;
+  color: #333;
 }
 
-p.disclaimer a{
-  color:#333;
+p.disclaimer a {
+  color: #333;
 }
 
 p.back {
-  padding: 0.5em 0;
-  font-size:0.6em;
-  text-align:center;
-  color:#333;
+  padding:  0.5em 0;
+  font-size: 0.6em;
+  text-align: center;
+  color: #333;
 }
 
 p.back a {
