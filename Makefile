@@ -1,2 +1,2 @@
 server:
-	bundle exec ruby bus.rb
+	bundle exec shotgun config.ru -p 4567
