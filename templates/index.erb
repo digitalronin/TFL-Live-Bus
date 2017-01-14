@@ -11,7 +11,12 @@
   <script src="/mobile.js"></script>
 </head>
 
-<p class="instruction">Search for a bus stop name here, or try <a href="/nearby">autolocation</a>.</p>
+<% if @flash %>
+  <h2><%= @flash %></h2>
+<% end %>
+
+<p class="instruction">Enter the SMS code for your bus stop</p>
+
 <form action="/" method="get" class="search">
   <input name="search" type="text" />
   <input type="submit" value="Search">

@@ -3,6 +3,10 @@ require 'net/http'
 require 'json'
 require 'erb'
 require 'cgi'
+require 'net/http'
+require 'uri'
+require './lib/lookup'
+
 set :views, File.dirname(__FILE__) + '/templates'
 set :public, File.dirname(__FILE__) + '/static'
 
@@ -15,7 +19,11 @@ STOP_URL = 'HTTP://BUS.ABSCOND.ORG/stop'
 
 get '/' do
   if params[:search] && params[:search] != ""
-    @search_results = STOPS.select {|x| x["name"] =~ /#{params[:search]}/i}
+    if id = Lookup.id_from_sms_code(params[:search])
+      redirect to("/stop/#{id}")
+    else
+      @flash = "Bus stop not found"
+    end
   elsif params[:lat] && params[:lon] && params[:lat] != "" && params[:lon] != ""
     @search_results = STOPS.select { |x| approximate_distance_between(x, params) < 0.005 }
     @search_results.sort!{ |a, b| approximate_distance_between(a, params) <=> approximate_distance_between(b, params) }
