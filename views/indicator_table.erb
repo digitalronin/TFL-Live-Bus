@@ -1,8 +1,10 @@
 <table id="indicator">
   <% @arrivals.each do |arrival| %>
+    <% arrives_in = arrival["timeToStation"] / 60 %>
+    <% arrives_in = (arrives_in == 0) ? 'due' : arrives_in %>
   <tr>
     <td class="number"><%= arrival["lineId"] %></td>
-    <td><%= arrival["timeToStation"] / 60 %></td>
+    <td><%= arrives_in %></td>
     <td class="destination"><%= arrival["destinationName"] %></td>
   </tr>
   <% end %>
