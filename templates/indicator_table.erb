@@ -2,7 +2,8 @@
   <% @arrivals.each do |arrival| %>
   <tr>
     <td class="number"><%= arrival["lineId"] %></td>
-    <td><%= arrival["timeToStation"].to_i / 60 %></td>
+    <td><%= arrival["timeToStation"] / 60 %></td>
+    <td class="destination"><%= arrival["destinationName"] %></td>
   </tr>
   <% end %>
 </table>
