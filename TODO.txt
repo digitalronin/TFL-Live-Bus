@@ -1,4 +1,3 @@
-* update to latest gem versions
-* fix Module#public deprecation warning
+* fix Module#public deprecation warning (have to wait for a new sinatra version, or downgrade ruby)
 * build a version that makes the API calls from the client (so TFL can't block it)
 * build client-side version in elm?
