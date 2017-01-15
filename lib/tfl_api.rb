@@ -1,8 +1,10 @@
 class TflApi
+  STOP_POINT_URL = 'https://api.tfl.gov.uk/StopPoint'
+
 
   # Take a 5-digit bus stop SMS code (e.g. '72269') and return the corresponding Naptan ID (490008041N)
   def self.id_from_sms_code(value)
-    response = self.get("https://api.tfl.gov.uk/StopPoint/Sms/#{value}")
+    response = self.get("#{STOP_POINT_URL}/Sms/#{value}")
     # Although the API docs say we should get JSON back, and that's what happens on the TFL API explorer,
     # https://api.tfl.gov.uk/swagger/ui/index.html?url=/swagger/docs/v1#!/StopPoint/StopPoint_GetBySms
     # in practice, I only ever got redirected to /StopPoint/[naptan ID]
@@ -10,8 +12,8 @@ class TflApi
   end
 
   def self.get_arrivals(stop_id)
-    response = Net::HTTP.get(URI.parse("https://api.tfl.gov.uk/StopPoint/#{stop_id}/arrivals"))
-    JSON.parse(response).sort {|a,b| a["timeToStation"] <=> b["timeToStation"]}
+    response = self.get("#{STOP_POINT_URL}/#{stop_id}/arrivals")
+    JSON.parse(response.body).sort {|a,b| a["timeToStation"] <=> b["timeToStation"]}
   end
 
   # private
