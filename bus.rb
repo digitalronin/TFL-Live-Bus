@@ -3,7 +3,6 @@ require 'net/http'
 require 'json'
 require 'erb'
 require 'cgi'
-require 'awesome_print'
 
 require 'net/http'
 require 'uri'
