@@ -1,9 +1,4 @@
-* add a Makefile
-* get a single bus stop URL working
-* deploy to heroku
-* update the bus stop json data
-* get all bus stops working
-* enable lookup from published bus stop number to the ID required in the TFL unified API
-* fix geo-lookup
 * update to latest gem versions
 * fix Module#public deprecation warning
+* build a version that makes the API calls from the client (so TFL can't block it)
+* build client-side version in elm?
