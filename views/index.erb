@@ -1,6 +1,17 @@
 <p class="instruction">Enter the SMS code for your bus stop</p>
 
 <form action="/" method="get" class="search">
-  <input name="search" type="tel" />
+  <input id="search" name="search" type="tel" />
   <input type="submit" value="Search">
 </form>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // submit the search form as soon as the user has finished
+    // entering data (otherwise the user has to click the 'Search'
+    // button separately
+    var field = document.getElementById('search')
+    field.onblur = function() {
+      field.form.submit()
+    }
+  })
+</script>
