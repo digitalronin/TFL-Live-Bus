@@ -6,18 +6,13 @@
 
 <script type="text/javascript" charset="utf-8">
   function poll() {
-    $.ajax({
-      url: window.location.href+"/partial",
-      error: function(xhr_data) {
-        $("table#indicator").replaceWith("<h1>ERROR</h1><p>try reloading page</p>")
-      },
-      success: function(response) {
-        $("table#indicator").replaceWith(response);
-        setTimeout(function() { poll(); }, 15000);
-      }
-    });
+    promise.get(window.location.href + '/partial').then(function(err, text, xhr) {
+      document.getElementById('indicator').outerHTML = text
+      setTimeout(poll, 15000)
+    })
   }
-  $(document).ready(function() {
+
+  document.addEventListener("DOMContentLoaded", function(event) {
     poll()
-  });
+  })
 </script>
