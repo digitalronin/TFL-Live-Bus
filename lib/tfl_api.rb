@@ -1,15 +1,28 @@
 class TflApi
   STOP_POINT_URL = 'https://api.tfl.gov.uk/StopPoint'
 
+  BUS_STOP_TYPE = 'NaptanPublicBusCoachTram'
+
   class BusStop
     attr_reader :id, :commonName, :indicator, :lat, :lon
 
     def initialize(params)
       @id         = params.fetch('id')
       @commonName = params.fetch('commonName')
-      @indicator  = params.fetch('indicator')
+      @indicator  = params['indicator']
       @lat        = params.fetch('lat')
       @lon        = params.fetch('lon')
+    end
+  end
+
+  class StopPoint
+    attr_reader :id, :name, :lat, :lon
+
+    def initialize(params)
+      @id   = params.fetch('id')
+      @name = params.fetch('name')
+      @lat  = params.fetch('lat')
+      @lon  = params.fetch('lon')
     end
   end
 
@@ -25,6 +38,20 @@ class TflApi
   def self.get_arrivals(stop_id)
     response = self.get("#{STOP_POINT_URL}/#{stop_id}/arrivals")
     JSON.parse(response.body).sort {|a,b| a["timeToStation"] <=> b["timeToStation"]}
+  end
+
+  def self.search_stop_points_by_name(string)
+    url = STOP_POINT_URL + "/Search?query=" + URI.encode(string)
+    response = self.get(url)
+    JSON.parse(response.body)['matches'].map {|i| StopPoint.new(i)}
+  end
+
+  def self.bus_stops_by_stop_point_id(id)
+    url = STOP_POINT_URL + '/' + id
+    response = self.get(url)
+    JSON.parse(response.body)['children']
+      .find_all {|i| i['stopType'] == BUS_STOP_TYPE}
+      .map {|i| BusStop.new(i)}
   end
 
   # The point + radius form of the TFL API doesn't seem to work
@@ -43,7 +70,7 @@ class TflApi
     neLat = (lat  + distance).round(5)
 
     coords = "swLat=#{swLat}&neLat=#{neLat}&swLon=#{swLon}&neLon=#{neLon}"
-    url = STOP_POINT_URL + "?#{coords}&stopTypes=NaptanPublicBusCoachTram&modes=bus"
+    url = STOP_POINT_URL + "?#{coords}&stopTypes=#{BUS_STOP_TYPE}&modes=bus"
 
     response = self.get(url)
     JSON.parse(response.body)
