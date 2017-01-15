@@ -27,8 +27,10 @@
     // entering data (otherwise the user has to click the 'Search'
     // button separately
     var field = document.getElementById('search')
-    field.onblur = function() {
-      field.form.submit()
+    field.onblur = function(evt) {
+      if (evt.target.value.trim() !== "") {
+        field.form.submit()
+      }
     }
   })
 </script>
