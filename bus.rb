@@ -3,12 +3,14 @@ require 'net/http'
 require 'json'
 require 'erb'
 require 'cgi'
+require 'awesome_print'
+
 require 'net/http'
 require 'uri'
 require './lib/lookup'
 
-set :views, File.dirname(__FILE__) + '/views'
-set :public, File.dirname(__FILE__) + '/static'
+set :views,      File.dirname(__FILE__) + '/views'
+set :public_dir, File.dirname(__FILE__) + '/static'
 
 STOPS = JSON.parse(File.read("./bus_stops.json"))["markers"]
 
