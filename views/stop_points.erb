@@ -1,0 +1,18 @@
+<% if @stop_points %>
+  <table cellspacing="0">
+  <% @stop_points.each do |stop_point| %>
+    <tr>
+      <td class="stop">
+        <a class="stop" href="/stop_point/<%= stop_point.id %>">
+          <span class="name">
+            <%= stop_point.name %>
+          </span>
+        </a>
+      </td>
+      <td class="map">
+        <a href="http://maps.google.com/maps?z=16&amp;q=loc:<%= stop_point.lat %>+<%= stop_point.lon %>">map</a>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>

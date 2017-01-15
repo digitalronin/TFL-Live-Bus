@@ -9,46 +9,8 @@
   Or search <a href="/nearby" class="nearby">nearby</a>
 </p>
 
-<% if @bus_stops %>
-  <table cellspacing="0">
-  <% @bus_stops.each do |bus_stop| %>
-    <tr>
-      <td class="stop">
-        <a class="stop" href="/stop/<%= bus_stop.id %>">
-          <span class="name">
-          <%= bus_stop.commonName %>
-          <% if bus_stop.indicator %>
-            (<%= bus_stop.indicator %>)
-          <% end %>
-          </span>
-        </a>
-      </td>
-      <td class="map">
-        <a href="http://maps.google.com/maps?z=16&amp;q=loc:<%= bus_stop.lat %>+<%= bus_stop.lon %>">map</a>
-      </td>
-    </tr>
-  <% end %>
-  </table>
-<% end %>
-
-<% if @stop_points %>
-  <table cellspacing="0">
-  <% @stop_points.each do |stop_point| %>
-    <tr>
-      <td class="stop">
-        <a class="stop" href="/stop_point/<%= stop_point.id %>">
-          <span class="name">
-            <%= stop_point.name %>
-          </span>
-        </a>
-      </td>
-      <td class="map">
-        <a href="http://maps.google.com/maps?z=16&amp;q=loc:<%= stop_point.lat %>+<%= stop_point.lon %>">map</a>
-      </td>
-    </tr>
-  <% end %>
-  </table>
-<% end %>
+<%= erb :bus_stops %>
+<%= erb :stop_points %>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
