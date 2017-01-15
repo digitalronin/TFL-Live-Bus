@@ -1,5 +1,8 @@
 <p class="instruction">Find Bus Stop</p>
 
+<%= erb :bus_stops %>
+<%= erb :stop_points %>
+
 <div class="search-form">
   <form action="/" method="get" class="search">
     <input id="search" name="search" type="tel" /> <br />
@@ -9,7 +12,7 @@
 
 <div class="search-form">
   <form action="/" method="get" class="search">
-    <input id="search" name="search" type="text" /> <br />
+    <input name="search" type="text" /> <br />
     <input type="submit" value="by name">
   </form>
 </div>
@@ -17,9 +20,6 @@
 <p>
   Or search <a href="/nearby" class="nearby">nearby</a>
 </p>
-
-<%= erb :bus_stops %>
-<%= erb :stop_points %>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
