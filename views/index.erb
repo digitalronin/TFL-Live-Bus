@@ -1,9 +1,18 @@
-<p class="instruction">Bus Stop (SMS code/search by name)</p>
+<p class="instruction">Find Bus Stop</p>
 
-<form action="/" method="get" class="search">
-  <input id="search" name="search" type="tel" />
-  <input type="submit" value="Search">
-</form>
+<div class="search-form">
+  <form action="/" method="get" class="search">
+    <input id="search" name="search" type="tel" /> <br />
+    <input type="submit" value="by SMS code">
+  </form>
+</div>
+
+<div class="search-form">
+  <form action="/" method="get" class="search">
+    <input id="search" name="search" type="text" /> <br />
+    <input type="submit" value="by name">
+  </form>
+</div>
 
 <p>
   Or search <a href="/nearby" class="nearby">nearby</a>

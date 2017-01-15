@@ -9,7 +9,6 @@ body {
   font-weight: bold;
 }
 
-
 input {
   background-color: #fff;
   font-size: 1.4em;
@@ -86,3 +85,6 @@ a.nearby {
   font-size: 100%;
 }
 
+.search-form {
+  margin-bottom: 30px;
+}
