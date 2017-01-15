@@ -19,10 +19,13 @@ get '/' do
       @flash = "Bus stop not found"
     end
   elsif params[:lat] && params[:lon] && params[:lat] != "" && params[:lon] != ""
-    # @search_results = STOPS.select { |x| approximate_distance_between(x, params) < 0.005 }
-    # @search_results.sort!{ |a, b| approximate_distance_between(a, params) <=> approximate_distance_between(b, params) }
+    @bus_stops = TflApi.bus_stops_near_point(longitude: params[:lon], latitude: params[:lat])
   end
   erb :index
+end
+
+get '/nearby' do
+  erb :nearby
 end
 
 get '/stop/:stop_id' do |stop_id|

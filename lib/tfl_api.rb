@@ -1,6 +1,17 @@
 class TflApi
   STOP_POINT_URL = 'https://api.tfl.gov.uk/StopPoint'
 
+  class BusStop
+    attr_reader :id, :commonName, :indicator, :lat, :lon
+
+    def initialize(params)
+      @id         = params.fetch('id')
+      @commonName = params.fetch('commonName')
+      @indicator  = params.fetch('indicator')
+      @lat        = params.fetch('lat')
+      @lon        = params.fetch('lon')
+    end
+  end
 
   # Take a 5-digit bus stop SMS code (e.g. '72269') and return the corresponding Naptan ID (490008041N)
   def self.id_from_sms_code(value)
@@ -16,6 +27,32 @@ class TflApi
     JSON.parse(response.body).sort {|a,b| a["timeToStation"] <=> b["timeToStation"]}
   end
 
+  # The point + radius form of the TFL API doesn't seem to work
+  # https://api.tfl.gov.uk/swagger/ui/index.html?url=/swagger/docs/v1#!/StopPoint/StopPoint_GetByGeoPoint
+  # But, the version below, based on a bounding box, works fine
+  def self.bus_stops_near_point(longitude:, latitude:)
+    # 0.001 of long/lat is ~69 metres
+    distance = 0.005
+
+    long = longitude.to_f
+    lat  = latitude.to_f
+
+    swLon = (long - distance).round(5)
+    swLat = (lat  - distance).round(5)
+    neLon = (long + distance).round(5)
+    neLat = (lat  + distance).round(5)
+
+    coords = "swLat=#{swLat}&neLat=#{neLat}&swLon=#{swLon}&neLon=#{neLon}"
+    url = STOP_POINT_URL + "?#{coords}&stopTypes=NaptanPublicBusCoachTram&modes=bus"
+
+    response = self.get(url)
+    JSON.parse(response.body)
+      .map {|i| BusStop.new(i)}
+      .sort {|a,b|
+        self.approx_distance(a, long, lat) <=> approx_distance(b, long, lat)
+      }
+  end
+
   # private
 
   def self.get(url)
@@ -24,5 +61,11 @@ class TflApi
     https.use_ssl = true
     request = Net::HTTP::Get.new(uri.request_uri)
     https.request(request)
+  end
+
+  def self.approx_distance(bus_stop, longitude, latitude)
+    lat_diff = (bus_stop.lat.to_f - latitude).abs
+    lon_diff = (bus_stop.lon.to_f - longitude).abs
+    Math.sqrt(lat_diff**2 + lon_diff**2)
   end
 end

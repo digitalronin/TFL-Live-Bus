@@ -9,6 +9,7 @@ body {
   font-weight: bold;
 }
 
+
 input {
   background-color: #fff;
   font-size: 1.4em;
@@ -30,13 +31,17 @@ input[type="submit"] {
   }
 }
 
-table {
-  margin: 0.2em auto;
-}
-
 td.number {
   text-align: right;
   padding-right: 1em;
+}
+
+td.stop, td.map {
+  padding-bottom: 20px;
+  font-size: 75%;
+}
+td.stop a, td.map a {
+  color: #F00;
 }
 
 td.destination {
@@ -75,3 +80,9 @@ p.back a {
   text-decoration: none;
   background-color: #151515;
 }
+
+a.nearby {
+  color: white;
+  font-size: 100%;
+}
+
