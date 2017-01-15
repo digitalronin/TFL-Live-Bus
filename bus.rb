@@ -46,7 +46,7 @@ end
 
 get '/stop/:stop_id/partial' do |stop_id|
   @arrivals = get_arrivals(stop_id)
-  erb :indicator_table
+  erb :indicator_table, layout: false
 end
 
 def get_arrivals(stop_id)
