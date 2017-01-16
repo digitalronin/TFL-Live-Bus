@@ -41,6 +41,7 @@ get '/stop/:stop_id' do |stop_id|
   if @arrivals.any?
     arr = @arrivals.first
     @stop_name = "#{arr["stationName"]} (#{arr["platformName"]})"
+    @title = @stop_name
   end
   erb :stop
 end
